@@ -1,0 +1,31 @@
+!URxvt depth
+URxvt*depth: 32
+
+!Font
+URxvt*font: xft: Iosevka Nerd Font Mono:size=12:antialias=true:hinting=true,xft:Source Code Pro for Powerline:Pixelsize=9:antialias=true:hinting=true, xft: FontAwesome:pixelsize=1, Iosevka Nerd Font:style=Thin, xft: Inconsolata Nerd Font Mono:size=1, MesloLGM Nerd Font
+URxvt.letterSpace: 1 
+Xft.dpi: 96
+Xft.antialias: true
+Xft.hinting: true
+Xft.rgba: rgb
+Xft.autohint:false
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
+
+!ScrollBar
+URxvt.scrollBar: False
+
+!Rofi Theme
+rofi.theme: ~/.config/rofi/theme
+
+!Turn off ISO mode for cntrl shift
+URxvt.iso14755: true
+URxvt.iso14755_52: false
+
+!Urxvt Copy and Paste
+URxvt.keysym.Shift-Control-V: eval:paste_clipboard
+URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
+
+!Clickable URLs
+URxvt.url-launcher: firefox
+URxvt.matcher.button: 1
