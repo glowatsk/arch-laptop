@@ -17,17 +17,14 @@ secondary = ${xrdb:color2:#222}
 alert = ${xrdb:color3:#222}
 
 [bar/bar]
-; ...
 background = ${colors.background}
 foreground = ${colors.foreground}
 
 [bar/mainbar]
-monitor = ${env:MONITOR:eDP-1}
+monitor = ${env:MONITOR:eDP-1-1}
 width = 100%
-;height = 27
-;offset-x = 1%
-;offset-y = 1%
-;radius = 6.0
+height = 27
+radius = 6.0
 fixed-center = false
 
 background = ${colors.background}
@@ -45,21 +42,16 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = fixed:pixelsize=10;1
-font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = siji:pixelsize=10;1
+font-0 = Iosevka Nerd Font Mono:size=10;0
+font-1 = Inconsolata Mono Nerd Font Complete:size=10;0
 
-modules-left = i3
-modules-center = mpd battery
-modules-right = filesystem alsa pulseaudio xkeyboard memory cpu eth emperature date
+modules-left = battery vpn-openvpn-status
+modules-center = mpd i3
+modules-right = filesystem pulseaudio xkeyboard memory cpu eth wireless-network temperature date
 
 tray-position = right
 tray-padding = 2
 tray-background = #0063ff
-
-;wm-restack = i3
-
-;override-redirect = true
 
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
@@ -68,18 +60,19 @@ cursor-click = pointer
 cursor-scroll = ns-resize
 
 [bar/alternatebar]
-monitor = ${env:MONITOR:DP-1-2}
+monitor = ${env:MONITOR:DP-1}
 width = 100%
-;height = 27
-;offset-x = 1%
-;offset-y = 1%
-;radius = 6.0
+height = 27
+radius = 6.0
 fixed-center = false
 
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-line-size = 3
+font-0 = Iosevka Nerd Font Mono:size=10;0
+font-1 = Inconsolata Mono Nerd Font Complete:size=10;0
+
+fline-size = 3
 line-color = #f00
 
 border-size = 4
@@ -91,22 +84,13 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = fixed:pixelsize=10;1
-font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = siji:pixelsize=10;1
-
-modules-left = 
-modules-center = i3 
-modules-right = 
+modules-left = date
+modules-center = xwindow 
+modules-right = i3 
 
 tray-position = right
 tray-padding = 2
-tray-transparent = true
 tray-background = #0063ff
-
-;wm-restack = i3
-
-;override-redirect = true
 
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
@@ -116,7 +100,7 @@ cursor-scroll = ns-resize
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:30:...%
+label = %title:0:80:%
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -157,23 +141,48 @@ label-mode-padding = 2
 label-mode-foreground = #000
 label-mode-background = ${colors.primary}
 
-; focused = Active workspace on focused monitor
-;label-focused = %index%
+;Workspace Icons
+;ws-icon-0 = 0;
+;ws-icon-1 = 1;
+;ws-icon-2 = 2;
+:ws-icon-default = 
+
+; Bash script to print out icons
+;Counter=0
+;i3-msg -t get_workspaces | tr ',' '\n' | sed -nr 's/"name":"([^"]+)"/\1/p' | while read -r name; do
+;  printf 'ws-icon-%i = "%s;<insert-icon-here>"\n' $((counter++)) $name
+;done
+
+;Label Padding
+label-active-padding = 2
+label-focused-padding = 2
+label-unfocused-padding = 2
+label-visible-padding = 2
+
+;Label Focused
+label-focused-underline = ${colors.foreground-alt}
+
+; Separator in between workspaces
+label-separator = |
+label-separator-padding = 2
+
+;active = Active workspace on focused monitor
+label-active = %name%;%icon%
 
 ; unfocused = Inactive workspace on any monitor
-label-unfocused = %index%
+;label-unfocused = %index%
 
-; visible = Active workspace on unfocused monitor
+;visible = Active workspace on unfocused monitor
 ;label-visible = %index%
 ;label-visible-background = ${self.label-focused-background}
 ;label-visible-underline = ${self.label-focused-underline}
 ;label-visible-padding = ${self.label-focused-padding}
 
-; urgent = Workspace with urgency hint set
+;urgent = Workspace with urgency hint set
 label-urgent = %index%
 
 ; Separator in between workspaces
- label-separator = |
+;label-separator = |
 
 
 [module/mpd]
@@ -207,15 +216,18 @@ label = %percentage_used%%
 
 [module/eth]
 type = internal/network
-interface = enp6s0 
+interface = enp0s31f6
 interval = 3.0
+
+[module/wireless-network]
+type = internal/network
+interface = wlp4s0
 
 format-connected-underline = #55aa55
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
 label-connected = %local_ip%
 
-format-disconnected =
 ;format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
@@ -378,4 +390,7 @@ screenchange-reload = true
 margin-top = 5
 margin-bottom = 5
 
-
+[module/vpn-openvpn-status]
+type = custom/script
+exec = ~/polybar-scripts/vpn-openvpn-status.sh
+interval = 5

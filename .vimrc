@@ -1,3 +1,9 @@
+if has ('nvim')
+	"Neovim specific commands
+else
+	"Standard vim specific commands
+endif
+
 "Execute pathogen for plugins 
 execute pathogen#infect()
 
@@ -33,5 +39,11 @@ set lazyredraw
 "Highlight matching brackets
 set showmatch
 
-"Configure nerdtree
-nmap ` :NERDTreeToggle<CR>
+"Set hybrid line numbers
+:set number relativenumber
+:set nu rnu
+
+"Nerd Tree Toggle
+nnoremap ` :NERDTreeToggle<cr>
+
+"Toggle focused mode with :Goyo

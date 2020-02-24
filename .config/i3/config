@@ -8,8 +8,9 @@
 exec_always xset +fp $HOME/.fonts
 exec_always xsef fp rehash
 exec_always $HOME/.screenlayout/screenlayout.sh
-exec_always wal -i ~/wallpapers/
-
+exec_always wal -i $HOME/wallpapers/
+exec --no-startup-id /usr/bin/picom --config $HOME/.config/picom/config
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 #SETTINGS
 
@@ -166,9 +167,6 @@ client.placeholder      $bg     $bg     $fg  $bg       $bg
 
 client.background       $bg
 
+#Exec final apps
+exec_always --no-startup-id /user/bin/clipit
 
-# Execs
-
-exec --no-startup-id /usr/bin/compton --config $HOME/.config/compton/config
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec_always --no-startup-id /usr/local/bin/clipit
